@@ -694,7 +694,7 @@ class SimpleGun {
     }
 
     shoot(direction) {
-        const LASER_SPEED = 0.75;
+        const LASER_SPEED = 0.5;
         const RECOIL_DISTANCE = 4;
         const RECOIL_DURATION = this.downtime() / 1.5;
 
@@ -719,7 +719,7 @@ class SimpleGun {
         // );
 
         // audio
-        audioManager.play("shot-soft");
+        audioManager.play("laser-soft", { volume: 0.3 });
 
         // Recoil of laser
         const initialX = this.mesh.position.x;
@@ -824,7 +824,7 @@ class BetterGun {
     }
 
     shoot(direction) {
-        const LASER_SPEED = 1.5;
+        const LASER_SPEED = 0.5;
         const RECOIL_DISTANCE = 4;
         const RECOIL_DURATION = this.downtime() / 3;
 
@@ -837,9 +837,8 @@ class BetterGun {
             position,
             direction,
             LASER_SPEED,
-            0.75, //bullet sie
-            6,
-            0xff0000
+            0.8, //bullet sie
+            6
         );
 
         // laser particle effect
@@ -851,7 +850,7 @@ class BetterGun {
         // );
 
         // audio
-        audioManager.play("shot-hard");
+        audioManager.play("laser-hard", { volume: 0.3 });
 
         // Recoil of gun
         const initialX = this.mesh.position.x;
@@ -1456,7 +1455,7 @@ class Coin {
         ) {
             spawnParticles(this.mesh.position.clone(), 5, COLOR_COINS, 0.8);
             addCoin();
-            audioManager.play("coin", { volume: 0.5 });
+            audioManager.play("orb", { volume: 0.5 });
             sceneManager.remove(this);
         }
         // passed-by?
@@ -1686,7 +1685,7 @@ function loop() {
         if (airplane.mesh.position.y < -200) {
             ui.showReplay();
             game.status = "waitingReplay";
-            audioManager.play("water-splash");
+            audioManager.play("ufo-explode");
         }
     } else if (game.status == "waitingReplay") {
         // nothing to do
@@ -2102,8 +2101,8 @@ let soundPlaying = false;
 
 function startMap() {
     if (!soundPlaying) {
-        audioManager.play("propeller", { loop: true, volume: 1 });
-        audioManager.play("ocean", { loop: true, volume: 1 });
+        audioManager.play("ufo-sound", { loop: true, volume: 0.2 });
+        // audioManager.play("ocean", { loop: true, volume: 1 });
         soundPlaying = true;
     }
 
@@ -2117,18 +2116,11 @@ function startMap() {
 function onWebsiteLoaded(event) {
     // load audio
     audioManager.load("ocean", null, "/audio/ocean.mp3");
-    audioManager.load("propeller", null, "/audio/propeller.mp3");
+    audioManager.load("ufo-sound", null, "/audio/ufo-sound.mp3");
 
-    audioManager.load("coin-1", "coin", "/audio/coin-1.mp3");
-    audioManager.load("coin-2", "coin", "/audio/coin-2.mp3");
-    audioManager.load("coin-3", "coin", "/audio/coin-3.mp3");
-    audioManager.load("jar-1", "coin", "/audio/jar-1.mp3");
-    audioManager.load("jar-2", "coin", "/audio/jar-2.mp3");
-    audioManager.load("jar-3", "coin", "/audio/jar-3.mp3");
-    audioManager.load("jar-4", "coin", "/audio/jar-4.mp3");
-    audioManager.load("jar-5", "coin", "/audio/jar-5.mp3");
-    audioManager.load("jar-6", "coin", "/audio/jar-6.mp3");
-    audioManager.load("jar-7", "coin", "/audio/jar-7.mp3");
+    audioManager.load("orb-1", "orb", "/audio/orb-1.mp3");
+    audioManager.load("orb-2", "orb", "/audio/orb-2.mp3");
+    audioManager.load("orb-3", "orb", "/audio/orb-3.mp3");
 
     audioManager.load(
         "airplane-crash-1",
@@ -2148,9 +2140,9 @@ function onWebsiteLoaded(event) {
 
     audioManager.load("bubble", "bubble", "/audio/bubble.mp3");
 
-    audioManager.load("shot-soft", "shot-soft", "/audio/shot-soft.mp3");
+    audioManager.load("laser-soft", "laser-soft", "/audio/laser-soft.mp3");
 
-    audioManager.load("shot-hard", "shot-hard", "/audio/shot-hard.mp3");
+    audioManager.load("laser-hard", "laser-hard", "/audio/laser-hard.mp3");
 
     audioManager.load(
         "bullet-impact",
@@ -2158,11 +2150,7 @@ function onWebsiteLoaded(event) {
         "/audio/bullet-impact-rock.mp3"
     );
 
-    audioManager.load(
-        "water-splash",
-        "water-splash",
-        "/audio/water-splash.mp3"
-    );
+    audioManager.load("ufo-explode", "ufo-explode", "/audio/ufo-explode.mp3");
     audioManager.load(
         "rock-shatter-1",
         "rock-shatter",
