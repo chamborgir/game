@@ -1695,7 +1695,7 @@ function createWorld() {
         maxLifes: 3,
         pauseLifeSpawn: 400,
 
-        levelCount: 2,
+        levelCount: 8,
         distanceForLevelUpdate: 500,
 
         UFODefaultHeight: 100,
@@ -1805,7 +1805,8 @@ let soundPlaying = false;
 function startMap() {
     if (!soundPlaying) {
         audioManager.play("ufo-sound", { loop: true, volume: 0.5 });
-        // audioManager.play("ocean", { loop: true, volume: 1 });
+        audioManager.play("bg", { loop: true, volume: 0.4 });
+
         soundPlaying = true;
     }
 
@@ -1818,7 +1819,7 @@ function startMap() {
 
 function onWebsiteLoaded(event) {
     // load audio
-    audioManager.load("ocean", null, "/audio/ocean.mp3");
+    audioManager.load("bg", null, "/audio/bg.mp3");
     audioManager.load("ufo-sound", null, "/audio/ufo-sound.mp3");
 
     audioManager.load("orb-1", "orb", "/audio/orb-1.mp3");
