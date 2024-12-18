@@ -7,7 +7,6 @@
 :root {
 	font-size: 13px;
 }
-
 body {
 	margin: 0;
 	overflow: hidden;
@@ -17,23 +16,24 @@ body {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	--color-text: #575972;
-	--color-bg: #fff;
-	--color-link: #eb5b4a ;
-	--color-link-hover: #f1d796;
-	--color-text-title: #f1d796;
-	--color-bg-score: #f1d796;
-	--color-accent: #101558;
-	--color-line: #ab9c77;
-	--color-message: #eb5b4a;
-	--color-bg-scorescreen: #0e0e35;
-	--gradient: linear-gradient(#101232, #101560);
+	--color-text: #a1c4ff; /* Light blue text */
+	--color-bg: #0a0e27; /* Dark blue background */
+	--color-link: #3a91f2; /* Medium blue for links */
+	--color-link-hover: #74c0fc; /* Light blue for hover links */
+	--color-text-title: #9bc9ff; /* Light blue for titles */
+	--color-bg-score: #13244d; /* Slightly lighter dark blue */
+	--color-accent: #6b84bb; /* Medium dark blue for accents */
+	--color-line: #6ba4ff; /* Soft blue for lines */
+	--color-message: #4a9df5; /* Brighter blue for messages */
+	--color-bg-scorescreen: #05122b; /* Very dark blue for score screen */
+	--gradient: linear-gradient(#0a1d47, #0a276b); /* Blue gradient */
 	color: var(--color-text);
 	background-color: var(--color-bg);
-	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
+	font-family: 'Press Start 2P', cursive; /* Retro 8-bit font */
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
 
 p {
 	margin: 0;
@@ -117,7 +117,7 @@ a:focus-visible {
 
 .header__title-pre {
 	display: block;
-	font-size: 0.85rem;
+	font-size: 0.5rem;
 	margin: 0 0 -0.75rem -12.5rem;
 }
 
@@ -159,6 +159,10 @@ a:focus-visible {
 	padding: 1rem;
 }
 
+.score:not(.visible) {
+	display: none;
+}
+
 .score__content {
 	position: relative;
 	padding: 0 1rem;
@@ -188,7 +192,7 @@ a:focus-visible {
 	text-align: center;
 	color: var(--color-accent);
 	text-transform: uppercase;
-	font-size: 0.65rem;
+	font-size: 0.6rem;
 	letter-spacing: 0.15rem;
 	font-weight: bold;
 }
@@ -200,17 +204,19 @@ a:focus-visible {
 }
 
 .score__value--level {
-	font-size: 1.5rem;
+	font-size: .75rem;
+	margin-right	: .5rem;
 }
 
 .score__value--dist {
-	font-size: 1.85rem;
+	font-size: 1rem;
 	line-height: 1;
 }
 
 .level-circle {
 	grid-area: value;
-	width: 46px;
+	width: 40px;
+	margin-left: 10px;
 	transform: rotate(-90deg);
 }
 
@@ -444,11 +450,33 @@ a:focus-visible {
 }
 
 #intro-screen {
-	display: grid;
+
+	padding-top: 12rem;
+	display: flex;
+	flex-direction: column;
 	place-items: center;
 	width: 100%;
 	height: 100%;
 	position: relative;
+	color: #ffffff; /* White text for better contrast */
+	background: var(--gradient); /* Use the blue gradient from the body */
+	text-shadow: 2px 2px #000; /* Retro shadow effect */
+	font-family: 'Press Start 2P', cursive; /* 8-bit style font */
+}
+
+#intro-screen h1 {
+	font-size: 12rem; /* Scaled down for better spacing */
+	color: #f1d796; /* Gold-like title color for prominence */
+	text-shadow: 4px 4px #1e3a78; /* Heavy shadow for title */
+	margin: 0;
+}
+
+#intro-screen h2 {
+	font-size: 1.25rem; /* Slightly larger for better readability */
+	color: #a1c4ff; /* Light blue for subtitle */
+	text-shadow: 2px 2px #000; /* Subtle shadow for depth */
+	margin: 10px 0;
+	
 }
 
 #intro-screen:not(.visible) {
@@ -456,16 +484,33 @@ a:focus-visible {
 }
 
 #intro-screen button {
-	width: 100px;
-	height: 100px;
+	width: 120px;
+	height: 120px;
 	display: grid;
 	place-items: center;
-	background: transparent;
-	color: var(--color-text);
-	font: inherit;
-	border-radius: 50%;
+	background: #3a91f2; /* Bright blue for button */
+	color: #ffffff; /* White text for contrast */
+	font-family: 'Press Start 2P', cursive; /* 8-bit font */
+	font-size: 1rem;
+	border-radius: 50%; /* Retro circular button */
 	cursor: pointer;
-	border: 1px solid;
+	border: 3px solid #6ba4ff; /* Lighter blue border for contrast */
+	box-shadow: 4px 4px #1e3a78; /* Retro shadow for button */
+	transition: transform 0.2s, box-shadow 0.2s;
+
+	margin-top: 5rem;
+}
+
+#intro-screen button:hover {
+	background: #74c0fc; /* Light blue hover effect */
+	box-shadow: 2px 2px #1e3a78; /* Subtle shadow change */
+	transform: scale(1.1); /* Slight zoom on hover */
+}
+
+#intro-screen button:active {
+	background: #4a9df5; /* Slightly darker blue for click effect */
+	box-shadow: 1px 1px #1e3a78; /* Less shadow on active */
+	transform: scale(0.95); /* Button depress effect */
 }
 
 @keyframes appearScale {

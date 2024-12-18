@@ -4,24 +4,24 @@
 // MODEL LOADER
 // const loader = new GLTFLoader();
 
-function createAirplaneMesh() {
+function createUFOMesh() {
     const mesh = new THREE.Object3D();
 
-    // Material for the saucer
+    // material for the saucer
     var matSaucer = new THREE.MeshPhongMaterial({
         color: Colors.silver, // Metallic look
         flatShading: true,
         side: THREE.DoubleSide,
     });
 
-    // Main saucer body (disk)
+    // main saucer body (disk)
     const geomSaucerBody = new THREE.CylinderGeometry(25, 80, 20, 32, 1, true);
     const saucerBody = new THREE.Mesh(geomSaucerBody, matSaucer);
     saucerBody.castShadow = true;
     saucerBody.receiveShadow = true;
     mesh.add(saucerBody);
 
-    // Dome on top of the saucer
+    //dome on top of the saucer
     const matDome = new THREE.MeshPhongMaterial({
         color: Colors.blue, // Could be glass-like or glowing
         flatShading: true,
@@ -42,7 +42,7 @@ function createAirplaneMesh() {
     dome.receiveShadow = true;
     mesh.add(dome);
 
-    // Base of the saucer (inverted dome)
+    // base of the saucer (inverted dome)
     const geomBase = new THREE.SphereGeometry(
         30,
         32,
@@ -58,7 +58,7 @@ function createAirplaneMesh() {
     base.receiveShadow = true;
     mesh.add(base);
 
-    // Lights around the saucer
+    //Lights around the saucer
     const lightMaterial = new THREE.MeshBasicMaterial({
         color: Colors.green,
         emissive: Colors.green,
@@ -71,178 +71,16 @@ function createAirplaneMesh() {
         mesh.add(light);
     }
 
-    // Finalize the UFO
+    // finalize UFO
     mesh.rotation.x = Math.PI / 6; // Slight tilt for a dynamic look
     mesh.castShadow = true;
     mesh.receiveShadow = true;
 
     scene.add(mesh);
-
-    // Engine
-
-    // NOTE: UFO Lights
-    var geomEngine = new THREE.BoxGeometry(20, 50, 50, 1, 1, 1);
-    var matEngine = new THREE.MeshPhongMaterial({
-        color: Colors.white,
-        flatShading: true,
-    });
-    var engine = new THREE.Mesh(geomEngine, matEngine);
-    //Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ñ
-    engine.position.x = 50;
-    engine.castShadow = true;
-    engine.receiveShadow = true;
-    // mesh.add(engine);
-
-    // Tail Plane
-    var geomTailPlane = new THREE.BoxGeometry(15, 20, 5, 1, 1, 1);
-    var matTailPlane = new THREE.MeshPhongMaterial({
-        color: Colors.red,
-        flatShading: true,
-    });
-    var tailPlane = new THREE.Mesh(geomTailPlane, matTailPlane);
-    //Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ñ
-    tailPlane.position.set(-40, 20, 0);
-    tailPlane.castShadow = true;
-    tailPlane.receiveShadow = true;
-    // mesh.add(tailPlane);
-
-    // Wings
-
-    var geomSideWing = new THREE.BoxGeometry(30, 5, 120, 1, 1, 1);
-    var matSideWing = new THREE.MeshPhongMaterial({
-        color: Colors.red,
-        flatShading: true,
-    });
-    var sideWing = new THREE.Mesh(geomSideWing, matSideWing);
-    //Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ñ
-    sideWing.position.set(0, 15, 0);
-    sideWing.castShadow = true;
-    sideWing.receiveShadow = true;
-    // mesh.add(sideWing);
-
-    // NOTE: UFO DOME
-    var geomWindshield = new THREE.BoxGeometry(3, 15, 20, 1, 1, 1);
-    var matWindshield = new THREE.MeshPhongMaterial({
-        color: Colors.white,
-        transparent: true,
-        opacity: 0.3,
-        flatShading: true,
-    });
-    var windshield = new THREE.Mesh(geomWindshield, matWindshield);
-    windshield.position.set(20, 27, 0);
-
-    windshield.castShadow = true;
-    windshield.receiveShadow = true;
-
-    // mesh.add(windshield);
-
-    var geomPropeller = new THREE.BoxGeometry(20, 10, 10, 1, 1, 1);
-    geomPropeller.attributes.position.array[4 * 3 + 1] -= 5;
-    geomPropeller.attributes.position.array[4 * 3 + 2] += 5;
-    geomPropeller.attributes.position.array[5 * 3 + 1] -= 5;
-    geomPropeller.attributes.position.array[5 * 3 + 2] -= 5;
-    geomPropeller.attributes.position.array[6 * 3 + 1] += 5;
-    geomPropeller.attributes.position.array[6 * 3 + 2] += 5;
-    geomPropeller.attributes.position.array[7 * 3 + 1] += 5;
-    geomPropeller.attributes.position.array[7 * 3 + 2] -= 5;
-    var matPropeller = new THREE.MeshPhongMaterial({
-        color: Colors.brown,
-        flatShading: true,
-    });
-    const propeller = new THREE.Mesh(geomPropeller, matPropeller);
-
-    propeller.castShadow = true;
-    propeller.receiveShadow = true;
-
-    var geomBlade = new THREE.BoxGeometry(1, 80, 10, 1, 1, 1);
-    var matBlade = new THREE.MeshPhongMaterial({
-        color: Colors.brownDark,
-        flatShading: true,
-    });
-    var blade1 = new THREE.Mesh(geomBlade, matBlade);
-    //Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ñ
-    blade1.position.set(8, 0, 0);
-
-    blade1.castShadow = true;
-    blade1.receiveShadow = true;
-
-    var blade2 = blade1.clone();
-    blade2.rotation.x = Math.PI / 2;
-
-    blade2.castShadow = true;
-    blade2.receiveShadow = true;
-
-    propeller.add(blade1);
-    propeller.add(blade2);
-    propeller.position.set(60, 0, 0);
-    // mesh.add(propeller);
-
-    var wheelProtecGeom = new THREE.BoxGeometry(30, 15, 10, 1, 1, 1);
-    var wheelProtecMat = new THREE.MeshPhongMaterial({
-        color: Colors.red,
-        flatShading: true,
-    });
-
-    //
-    var wheelProtecR = new THREE.Mesh(wheelProtecGeom, wheelProtecMat);
-    //Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ñ
-    wheelProtecR.position.set(25, -20, 25);
-    // mesh.add(wheelProtecR);
-
-    var wheelTireGeom = new THREE.BoxGeometry(24, 24, 4);
-    var wheelTireMat = new THREE.MeshPhongMaterial({
-        color: Colors.brownDark,
-        flatShading: true,
-    });
-    var wheelTireR = new THREE.Mesh(wheelTireGeom, wheelTireMat);
-    //Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ñ
-    wheelTireR.position.set(25, -28, 25);
-
-    var wheelAxisGeom = new THREE.BoxGeometry(10, 10, 6);
-    var wheelAxisMat = new THREE.MeshPhongMaterial({
-        color: Colors.brown,
-        flatShading: true,
-    });
-    var wheelAxis = new THREE.Mesh(wheelAxisGeom, wheelAxisMat);
-    // wheelTireR.add(wheelAxis);
-
-    // mesh.add(wheelTireR);
-
-    var wheelProtecL = wheelProtecR.clone();
-    wheelProtecL.position.z = -wheelProtecR.position.z;
-    // mesh.add(wheelProtecL);
-
-    var wheelTireL = wheelTireR.clone();
-    wheelTireL.position.z = -wheelTireR.position.z;
-    // mesh.add(wheelTireL);
-
-    var wheelTireB = wheelTireR.clone();
-    wheelTireB.scale.set(0.5, 0.5, 0.5);
-    //Ð¿Ð¾Ð·Ð¸Ñ†Ð¸Ñ
-    wheelTireB.position.set(-35, -5, 0);
-    // mesh.add(wheelTireB);
-
-    var suspensionGeom = new THREE.BoxGeometry(4, 20, 4);
-    suspensionGeom.applyMatrix4(new THREE.Matrix4().makeTranslation(0, 10, 0));
-    var suspensionMat = new THREE.MeshPhongMaterial({
-        color: Colors.red,
-        flatShading: true,
-    });
-    var suspension = new THREE.Mesh(suspensionGeom, suspensionMat);
-    suspension.position.set(-35, -5, 0);
-    suspension.rotation.z = -0.3;
-    // mesh.add(suspension);
-
-    const pilot = new Pilot();
-    pilot.mesh.position.set(5, 27, 0);
-    // mesh.add(pilot.mesh);
-
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-
-    return [mesh, propeller, pilot];
+    return [mesh];
 }
 
+//utilities
 const utils = {
     normalize: function (v, vmin, vmax, tmin, tmax) {
         var nv = Math.max(Math.min(v, vmax), vmin);
@@ -307,6 +145,7 @@ const utils = {
     },
 };
 
+//scenes manager
 class SceneManager {
     constructor() {
         this.list = new Set();
@@ -459,8 +298,8 @@ var Colors = {
     blue: 0x68c3c0,
 };
 
-const COLOR_COINS = 0xffd700; // 0x009999
-const COLOR_COLLECTIBLE_BUBBLE = COLOR_COINS;
+const COLOR_GEMS = 0x009df3; // 0x009999
+const COLOR_COLLECTIBLE_BUBBLE = COLOR_GEMS;
 
 ///////////////
 // GAME VARIABLES
@@ -497,36 +336,10 @@ function createScene() {
         renderer.setSize(ui.width, ui.height);
         camera.aspect = ui.width / ui.height;
         camera.updateProjectionMatrix();
-
-        // setTimeout(() => {
-        // 	const rayCaster = new THREE.Raycaster()
-        // 	rayCaster.setFromCamera(new THREE.Vector2(1, 1), camera)
-        // 	const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0)
-        // 	const intersectPoint = new THREE.Vector3()
-        // 	rayCaster.ray.intersectPlane(plane, intersectPoint)
-        // 	console.log('max world x:', intersectPoint.x)
-        // 	// MAX_WORLD_X = intersectPoint.x  doesn't work with first person view
-        // }, 500)
     }
 
     setupCamera();
     ui.onResize(setupCamera);
-
-    // const controls = new THREE.OrbitControls(camera, renderer.domElement)
-    // controls.minPolarAngle = -Math.PI / 2
-    // controls.maxPolarAngle = Math.PI
-    // controls.addEventListener('change', () => {
-    // 	console.log('camera changed', 'camera=', camera.position, ', airplane=', airplane.position, 'camera.rotation=', camera.rotation)
-    // })
-    // setTimeout(() => {
-    // 	camera.lookAt(airplane.mesh.position)
-    // 	controls.target.copy(airplane.mesh.position)
-    // }, 100)
-
-    // controls.noZoom = true
-    //controls.noPan = true
-
-    // handleWindowResize()
 }
 
 // LIGHTS
@@ -550,99 +363,6 @@ function createLights() {
     scene.add(hemisphereLight);
     scene.add(shadowLight);
     scene.add(ambientLight);
-}
-
-class Pilot {
-    constructor() {
-        this.mesh = new THREE.Object3D();
-        this.angleHairs = 0;
-
-        var bodyGeom = new THREE.BoxGeometry(15, 15, 15);
-        var bodyMat = new THREE.MeshPhongMaterial({
-            color: Colors.brown,
-            flatShading: true,
-        });
-        var body = new THREE.Mesh(bodyGeom, bodyMat);
-        body.position.set(2, -12, 0);
-        this.mesh.add(body);
-
-        var faceGeom = new THREE.BoxGeometry(10, 10, 10);
-        var faceMat = new THREE.MeshLambertMaterial({ color: Colors.pink });
-        var face = new THREE.Mesh(faceGeom, faceMat);
-        this.mesh.add(face);
-
-        var hairGeom = new THREE.BoxGeometry(4, 4, 4);
-        var hairMat = new THREE.MeshLambertMaterial({ color: Colors.brown });
-        var hair = new THREE.Mesh(hairGeom, hairMat);
-        hair.geometry.applyMatrix4(
-            new THREE.Matrix4().makeTranslation(0, 2, 0)
-        );
-        var hairs = new THREE.Object3D();
-
-        this.hairsTop = new THREE.Object3D();
-
-        for (var i = 0; i < 12; i++) {
-            var h = hair.clone();
-            var col = i % 3;
-            var row = Math.floor(i / 3);
-            var startPosZ = -4;
-            var startPosX = -4;
-            h.position.set(startPosX + row * 4, 0, startPosZ + col * 4);
-            h.geometry.applyMatrix4(new THREE.Matrix4().makeScale(1, 1, 1));
-            this.hairsTop.add(h);
-        }
-        hairs.add(this.hairsTop);
-
-        var hairSideGeom = new THREE.BoxGeometry(12, 4, 2);
-        hairSideGeom.applyMatrix4(
-            new THREE.Matrix4().makeTranslation(-6, 0, 0)
-        );
-        var hairSideR = new THREE.Mesh(hairSideGeom, hairMat);
-        var hairSideL = hairSideR.clone();
-        hairSideR.position.set(8, -2, 6);
-        hairSideL.position.set(8, -2, -6);
-        hairs.add(hairSideR);
-        hairs.add(hairSideL);
-
-        var hairBackGeom = new THREE.BoxGeometry(2, 8, 10);
-        var hairBack = new THREE.Mesh(hairBackGeom, hairMat);
-        hairBack.position.set(-1, -4, 0);
-        hairs.add(hairBack);
-        hairs.position.set(-5, 5, 0);
-
-        this.mesh.add(hairs);
-
-        var glassGeom = new THREE.BoxGeometry(5, 5, 5);
-        var glassMat = new THREE.MeshLambertMaterial({ color: Colors.brown });
-        var glassR = new THREE.Mesh(glassGeom, glassMat);
-        glassR.position.set(6, 0, 3);
-        var glassL = glassR.clone();
-        glassL.position.z = -glassR.position.z;
-
-        var glassAGeom = new THREE.BoxGeometry(11, 1, 11);
-        var glassA = new THREE.Mesh(glassAGeom, glassMat);
-        this.mesh.add(glassR);
-        this.mesh.add(glassL);
-        this.mesh.add(glassA);
-
-        var earGeom = new THREE.BoxGeometry(2, 3, 2);
-        var earL = new THREE.Mesh(earGeom, faceMat);
-        earL.position.set(0, 0, -6);
-        var earR = earL.clone();
-        earR.position.set(0, 0, 6);
-        this.mesh.add(earL);
-        this.mesh.add(earR);
-    }
-
-    updateHairs(deltaTime) {
-        var hairs = this.hairsTop.children;
-        var l = hairs.length;
-        for (var i = 0; i < l; i++) {
-            var h = hairs[i];
-            h.scale.y = 0.75 + Math.cos(this.angleHairs + i / 3) * 0.25;
-        }
-        this.angleHairs += game.speed * deltaTime * 40;
-    }
 }
 
 // LASERS
@@ -686,7 +406,7 @@ class SimpleGun {
     }
 
     downtime() {
-        return 0.1;
+        return 0.2;
     }
 
     damage() {
@@ -709,14 +429,6 @@ class SimpleGun {
             0.5, //bullet size
             3
         );
-
-        // laser particle effect
-        // spawnParticles(
-        //     position.clone().add(new THREE.Vector3(2, 0, 0)),
-        //     2,
-        //     0xff0000,
-        //     0.2
-        // );
 
         // audio
         audioManager.play("laser-soft", { volume: 0.3 });
@@ -828,7 +540,6 @@ class BetterGun {
         const RECOIL_DISTANCE = 4;
         const RECOIL_DURATION = this.downtime() / 3;
 
-        // position = position.clone().add(new THREE.Vector3(11.5, -1.3, 7.5))
         const position = new THREE.Vector3();
         this.mesh.getWorldPosition(position);
         position.add(new THREE.Vector3(12, 0, 0));
@@ -840,17 +551,10 @@ class BetterGun {
             0.8, //bullet sie
             6
         );
-
-        // laser particle effect
-        // spawnParticles(
-        //     position.clone().add(new THREE.Vector3(2, 0, 0)),
-        //     5,
-        //     0xffff00,
-        //     0.6
-        // );
-
-        // audio
-        audioManager.play("laser-hard", { volume: 0.3 });
+        +(
+            // audio
+            audioManager.play("laser-hard", { volume: 0.3 })
+        );
 
         // Recoil of gun
         const initialX = this.mesh.position.x;
@@ -867,12 +571,10 @@ class BetterGun {
     }
 }
 
-class Airplane {
+class UFO {
     constructor() {
-        const [mesh, propeller, pilot] = createAirplaneMesh();
+        const [mesh] = createUFOMesh();
         this.mesh = mesh;
-        this.propeller = propeller;
-        this.pilot = pilot;
         this.weapon = null;
         this.lastShot = 0;
     }
@@ -902,10 +604,10 @@ class Airplane {
 
         // fire the shot
         let direction = new THREE.Vector3(10, 0, 0);
-        direction.applyEuler(airplane.mesh.rotation);
+        direction.applyEuler(ufo.mesh.rotation);
         this.weapon.shoot(direction);
 
-        // recoil airplane
+        // recoil
         const recoilForce = this.weapon.damage();
         TweenMax.to(this.mesh.position, {
             duration: 0.05,
@@ -914,59 +616,55 @@ class Airplane {
     }
 
     tick(deltaTime) {
-        this.propeller.rotation.x += 0.2 + game.planeSpeed * deltaTime * 0.005;
-
         if (game.status === "playing") {
-            game.planeSpeed = utils.normalize(
+            game.UFOSpeed = utils.normalize(
                 ui.mousePos.x,
                 -0.5,
                 0.5,
-                world.planeMinSpeed,
-                world.planeMaxSpeed
+                world.UFOMinSpeed,
+                world.UFOMaxSpeed
             );
             let targetX = utils.normalize(
                 ui.mousePos.x,
                 -1,
                 1,
-                -world.planeAmpWidth * 0.7,
-                -world.planeAmpWidth
+                -world.UFOAmpWidth * 0.7,
+                -world.UFOAmpWidth
             );
             let targetY = utils.normalize(
                 ui.mousePos.y,
                 -0.75,
                 0.75,
-                world.planeDefaultHeight - world.planeAmpHeight,
-                world.planeDefaultHeight + world.planeAmpHeight
+                world.UFODefaultHeight - world.UFOAmpHeight,
+                world.UFODefaultHeight + world.UFOAmpHeight
             );
 
-            game.planeCollisionDisplacementX += game.planeCollisionSpeedX;
-            targetX += game.planeCollisionDisplacementX;
+            game.UFOCollisionDisplacementX += game.UFOCollisionSpeedX;
+            targetX += game.UFOCollisionDisplacementX;
 
-            game.planeCollisionDisplacementY += game.planeCollisionSpeedY;
-            targetY += game.planeCollisionDisplacementY;
+            game.UFOCollisionDisplacementY += game.UFOCollisionSpeedY;
+            targetY += game.UFOCollisionDisplacementY;
 
             this.mesh.position.x +=
                 (targetX - this.mesh.position.x) *
                 deltaTime *
-                world.planeMoveSensivity;
+                world.UFOMoveSensivity;
             this.mesh.position.y +=
                 (targetY - this.mesh.position.y) *
                 deltaTime *
-                world.planeMoveSensivity;
+                world.UFOMoveSensivity;
 
             this.mesh.rotation.x =
                 (this.mesh.position.y - targetY) *
                 deltaTime *
-                world.planeRotZSensivity;
+                world.UFORotXSensivity;
             this.mesh.rotation.z =
                 (targetY - this.mesh.position.y) *
                 deltaTime *
-                world.planeRotXSensivity;
+                world.UFORotXSensivity;
 
             if (game.fpv) {
                 camera.position.y = this.mesh.position.y + 20;
-                // camera.setRotationFromEuler(new THREE.Euler(-1.490248, -1.4124514, -1.48923231))
-                // camera.updateProjectionMatrix ()
             } else {
                 camera.fov = utils.normalize(ui.mousePos.x, -30, 1, 40, 80);
                 camera.updateProjectionMatrix();
@@ -977,36 +675,34 @@ class Airplane {
             }
         }
 
-        game.planeCollisionSpeedX +=
-            (0 - game.planeCollisionSpeedX) * deltaTime * 0.03;
-        game.planeCollisionDisplacementX +=
-            (0 - game.planeCollisionDisplacementX) * deltaTime * 0.01;
-        game.planeCollisionSpeedY +=
-            (0 - game.planeCollisionSpeedY) * deltaTime * 0.03;
-        game.planeCollisionDisplacementY +=
-            (0 - game.planeCollisionDisplacementY) * deltaTime * 0.01;
-
-        this.pilot.updateHairs(deltaTime);
+        game.UFOCollisionSpeedX +=
+            (0 - game.UFOCollisionSpeedX) * deltaTime * 0.03;
+        game.UFOCollisionDisplacementX +=
+            (0 - game.UFOCollisionDisplacementX) * deltaTime * 0.01;
+        game.UFOCollisionSpeedY +=
+            (0 - game.UFOCollisionSpeedY) * deltaTime * 0.03;
+        game.UFOCollisionDisplacementY +=
+            (0 - game.UFOCollisionDisplacementY) * deltaTime * 0.01;
     }
 
     gethit(position) {
         const diffPos = this.mesh.position.clone().sub(position);
         const d = diffPos.length();
-        game.planeCollisionSpeedX = (100 * diffPos.x) / d;
-        game.planeCollisionSpeedY = (100 * diffPos.y) / d;
+        game.UFOCollisionSpeedX = (100 * diffPos.x) / d;
+        game.UFOCollisionSpeedY = (100 * diffPos.y) / d;
         ambientLight.intensity = 2;
-        audioManager.play("airplane-crash");
+        audioManager.play("ufo-crash");
     }
 }
 
-function rotateAroundSea(object, deltaTime, speed) {
+function rotateAroundPlanet(object, deltaTime, speed) {
     object.angle += deltaTime * game.speed * world.collectiblesSpeed;
     if (object.angle > Math.PI * 2) {
         object.angle -= Math.PI * 2;
     }
     object.mesh.position.x = Math.cos(object.angle) * object.distance;
     object.mesh.position.y =
-        -world.seaRadius + Math.sin(object.angle) * object.distance;
+        -world.planetRadius + Math.sin(object.angle) * object.distance;
 }
 
 class Collectible {
@@ -1029,27 +725,20 @@ class Collectible {
         this.mesh.add(mesh);
         this.mesh.castShadow = true;
 
-        // for the angle:
-        //   Math.PI*2 * 0.0  => on the right side of the sea cylinder
-        //   Math.PI*2 * 0.1  => on the top right
-        //   Math.PI*2 * 0.2  => directly in front of the plane
-        //   Math.PI*2 * 0.3  => directly behind the plane
-        //   Math.PI*2 * 0.4  => on the top left
-        //   Math.PI*2 * 0.5  => on the left side
         this.angle = Math.PI * 2 * 0.1;
         this.distance =
-            world.seaRadius +
-            world.planeDefaultHeight +
-            (-1 + 2 * Math.random()) * (world.planeAmpHeight - 20);
+            world.planetRadius +
+            world.UFODefaultHeight +
+            (-1 + 2 * Math.random()) * (world.UFOAmpHeight - 20);
         this.mesh.position.y =
-            -world.seaRadius + Math.sin(this.angle) * this.distance;
+            -world.planetRadius + Math.sin(this.angle) * this.distance;
         this.mesh.position.x = Math.cos(this.angle) * this.distance;
 
         sceneManager.add(this);
     }
 
     tick(deltaTime) {
-        rotateAroundSea(this, deltaTime, world.collectiblesSpeed);
+        rotateAroundPlanet(this, deltaTime, world.collectiblesSpeed);
 
         // rotate collectible for visual effect
         this.mesh.rotation.y += deltaTime * 0.002 * Math.random();
@@ -1058,7 +747,7 @@ class Collectible {
         // collision?
         if (
             utils.collide(
-                airplane.mesh,
+                ufo.mesh,
                 this.mesh,
                 world.collectibleDistanceTolerance
             )
@@ -1123,7 +812,7 @@ function spawnSimpleGunCollectible() {
     gun.position.x = -2;
 
     new Collectible(gun, () => {
-        airplane.equipWeapon(new SimpleGun());
+        ufo.equipWeapon(new SimpleGun());
     });
 }
 
@@ -1133,7 +822,7 @@ function spawnBetterGunCollectible() {
     gun.position.x = -7;
 
     new Collectible(gun, () => {
-        airplane.equipWeapon(new BetterGun());
+        ufo.equipWeapon(new BetterGun());
     });
 }
 
@@ -1153,7 +842,7 @@ function spawnDoubleGunCollectible() {
     guns.add(gun2);
 
     new Collectible(guns, () => {
-        airplane.equipWeapon(new DoubleGun());
+        ufo.equipWeapon(new DoubleGun());
     });
 }
 
@@ -1215,7 +904,7 @@ class Sky {
             const c = new Cloud();
             this.clouds.push(c);
             var a = stepAngle * i;
-            var h = world.seaRadius + 150 + Math.random() * 200;
+            var h = world.planetRadius + 150 + Math.random() * 200;
             c.mesh.position.y = Math.sin(a) * h;
             c.mesh.position.x = Math.cos(a) * h;
             c.mesh.position.z = -300 - Math.random() * 500;
@@ -1237,43 +926,44 @@ class Sky {
     }
 }
 
-const COLOR_SEA_LEVEL = [
+const COLOR_PLANET_LEVEL = [
     0x2e2e2e, // Dark grey (e.g., asteroid or distant planet)
     0x6f2da8, // Purple (e.g., Neptune or a gas giant)
     0xffcc00, // Yellow (e.g., a star or a desert planet)
     0x8b0000, // Dark red (e.g., Mars or a rocky planet)
     0x228b22, // Green (e.g., an Earth-like planet)
     0x0000ff, // Blue (e.g., an ocean planet or Earth)
+    0xa52a2a, // Brown (e.g., a barren or volcanic planet)
+    0x8a2be2, // Violet (e.g., a mysterious or alien world)
+    0xf4a460, // Sandy (e.g., a dune-covered planet)
+    0xffffff, // White (e.g., an icy or frozen planet)
 ];
-
-class Sea {
+class Planet {
     constructor() {
-        var geom = new THREE.CylinderGeometry(
-            world.seaRadius,
-            world.seaRadius,
-            world.seaLength,
-            100,
-            20
-        );
-        geom.applyMatrix4(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
-        this.waves = [];
+        var geom = new THREE.SphereGeometry(world.planetRadius, 100, 100);
+        this.craters = [];
         const arr = geom.attributes.position.array;
+
         for (let i = 0; i < arr.length / 3; i++) {
-            this.waves.push({
+            this.craters.push({
                 x: arr[i * 3 + 0],
                 y: arr[i * 3 + 1],
                 z: arr[i * 3 + 2],
                 ang: Math.random() * Math.PI * 2,
                 amp:
-                    world.wavesMinAmp +
-                    Math.random() * (world.wavesMaxAmp - world.wavesMinAmp),
+                    world.craterMinAmp +
+                    Math.random() * (world.craterMaxAmp - world.craterMinAmp),
                 speed:
-                    world.wavesMinSpeed +
-                    Math.random() * (world.wavesMaxSpeed - world.wavesMinSpeed),
+                    world.craterMinSpeed +
+                    Math.random() *
+                        (world.craterMaxSpeed - world.craterMinSpeed),
+                craterDepth: Math.random() * 5 + 1, // Depth of the crater
+                craterRadius: Math.random() * 10 + 5, // Radius of the crater
             });
         }
+
         var mat = new THREE.MeshPhongMaterial({
-            color: COLOR_SEA_LEVEL[0],
+            color: COLOR_PLANET_LEVEL[0],
             transparent: true,
             opacity: 0.8,
             flatShading: true,
@@ -1283,19 +973,37 @@ class Sea {
     }
 
     tick(deltaTime) {
-        var arr = this.mesh.geometry.attributes.position.array;
+        const arr = this.mesh.geometry.attributes.position.array;
         for (let i = 0; i < arr.length / 3; i++) {
-            var wave = this.waves[i];
-            arr[i * 3 + 0] = wave.x + Math.cos(wave.ang) * wave.amp;
-            arr[i * 3 + 1] = wave.y + Math.sin(wave.ang) * wave.amp;
-            wave.ang += wave.speed * deltaTime;
+            const crater = this.craters[i];
+
+            // Calculate distance from the crater center (simulate craters)
+            const dist = Math.sqrt(
+                crater.x * crater.x + crater.y * crater.y + crater.z * crater.z
+            );
+
+            const normalizedDist =
+                (dist - world.planetRadius) / crater.craterRadius;
+
+            const craterEffect =
+                Math.exp(-normalizedDist * normalizedDist) * crater.craterDepth;
+
+            // Apply crater indentation
+            arr[i * 3 + 0] = crater.x - craterEffect * (crater.x / dist);
+            arr[i * 3 + 1] = crater.y - craterEffect * (crater.y / dist);
+            arr[i * 3 + 2] = crater.z - craterEffect * (crater.z / dist);
+
+            // Update angle for dynamic effect (if desired)
+            crater.ang += crater.speed * deltaTime;
         }
         this.mesh.geometry.attributes.position.needsUpdate = true;
     }
 
     updateColor() {
         this.mesh.material = new THREE.MeshPhongMaterial({
-            color: COLOR_SEA_LEVEL[(game.level - 1) % COLOR_SEA_LEVEL.length],
+            color: COLOR_PLANET_LEVEL[
+                (game.level - 1) % COLOR_PLANET_LEVEL.length
+            ],
             flatShading: true,
         });
     }
@@ -1359,21 +1067,17 @@ class Enemy {
     }
 
     tick(deltaTime) {
-        rotateAroundSea(this, deltaTime, world.enemiesSpeed);
+        rotateAroundPlanet(this, deltaTime, world.enemiesSpeed);
         this.mesh.rotation.y += Math.random() * 0.1;
         this.mesh.rotation.z += Math.random() * 0.1;
 
         // collision?
         if (
-            utils.collide(
-                airplane.mesh,
-                this.mesh,
-                world.enemyDistanceTolerance
-            ) &&
+            utils.collide(ufo.mesh, this.mesh, world.enemyDistanceTolerance) &&
             game.status !== "finished"
         ) {
             this.explode();
-            airplane.gethit(this.mesh.position);
+            ufo.gethit(this.mesh.position);
             removeLife();
         }
         // passed-by?
@@ -1416,12 +1120,12 @@ function spawnEnemies(count) {
         const enemy = new Enemy();
         enemy.angle = -(i * 0.1);
         enemy.distance =
-            world.seaRadius +
-            world.planeDefaultHeight +
-            (-1 + Math.random() * 2) * (world.planeAmpHeight - 20);
+            world.planetRadius +
+            world.UFODefaultHeight +
+            (-1 + Math.random() * 2) * (world.UFOAmpHeight - 20);
         enemy.mesh.position.x = Math.cos(enemy.angle) * enemy.distance;
         enemy.mesh.position.y =
-            -world.seaRadius + Math.sin(enemy.angle) * enemy.distance;
+            -world.planetRadius + Math.sin(enemy.angle) * enemy.distance;
     }
     game.statistics.enemiesSpawned += count;
 }
@@ -1429,10 +1133,11 @@ function spawnEnemies(count) {
 // COINS
 class Coin {
     constructor() {
-        var geom = new THREE.CylinderGeometry(4, 4, 1, 10);
+        // Replace CylinderGeometry with OctahedronGeometry for a diamond shape
+        var geom = new THREE.OctahedronGeometry(4, 0); // The first parameter is the size, the second is the detail level
         var mat = new THREE.MeshPhongMaterial({
-            color: COLOR_COINS,
-            shininess: 1,
+            color: COLOR_GEMS,
+            shininess: 50, // Increase shininess for a sparkling effect
             specular: 0xffffff,
             flatShading: true,
         });
@@ -1444,16 +1149,14 @@ class Coin {
     }
 
     tick(deltaTime) {
-        rotateAroundSea(this, deltaTime, world.coinsSpeed);
+        rotateAroundPlanet(this, deltaTime, world.coinsSpeed);
 
         this.mesh.rotation.z += Math.random() * 0.1;
         this.mesh.rotation.y += Math.random() * 0.1;
 
         // collision?
-        if (
-            utils.collide(airplane.mesh, this.mesh, world.coinDistanceTolerance)
-        ) {
-            spawnParticles(this.mesh.position.clone(), 5, COLOR_COINS, 0.8);
+        if (utils.collide(ufo.mesh, this.mesh, world.coinDistanceTolerance)) {
+            spawnParticles(this.mesh.position.clone(), 5, COLOR_GEMS, 0.8);
             addCoin();
             audioManager.play("orb", { volume: 0.5 });
             sceneManager.remove(this);
@@ -1468,16 +1171,16 @@ class Coin {
 function spawnCoins() {
     const nCoins = 1 + Math.floor(Math.random() * 10);
     const d =
-        world.seaRadius +
-        world.planeDefaultHeight +
-        utils.randomFromRange(-1, 1) * (world.planeAmpHeight - 20);
+        world.planetRadius +
+        world.UFODefaultHeight +
+        utils.randomFromRange(-1, 1) * (world.UFOAmpHeight - 20);
     const amplitude = 10 + Math.round(Math.random() * 10);
     for (let i = 0; i < nCoins; i++) {
         const coin = new Coin();
         coin.angle = -(i * 0.02);
         coin.distance = d + Math.cos(i * 0.5) * amplitude;
         coin.mesh.position.y =
-            -world.seaRadius + Math.sin(coin.angle) * coin.distance;
+            -world.planetRadius + Math.sin(coin.angle) * coin.distance;
         coin.mesh.position.x = Math.cos(coin.angle) * coin.distance;
     }
     game.statistics.coinsSpawned += nCoins;
@@ -1547,30 +1250,29 @@ function spawnProjectile(
 }
 
 // 3D Models
-let sea, sea2;
-let airplane;
+let planet, planet2;
+let ufo;
 
-function createPlane() {
-    airplane = new Airplane();
-    airplane.mesh.scale.set(0.25, 0.25, 0.25);
-    airplane.mesh.position.y = world.planeDefaultHeight;
-    scene.add(airplane.mesh);
+function createUFO() {
+    ufo = new UFO();
+    ufo.mesh.scale.set(0.25, 0.25, 0.25);
+    ufo.mesh.position.y = world.UFODefaultHeight;
+    scene.add(ufo.mesh);
 }
 
-function createSea() {
-    // We create a second sea that is not animated because the animation of our our normal sea leaves holes at certain points and I don't know how to get rid of them. These holes did not occur in the original script that used three js version 75 and mergeVertices. However, I tried to reproduce that behaviour in the animation function but without succes - thus this workaround here.
-    sea = new Sea();
-    sea.mesh.position.y = -world.seaRadius;
-    scene.add(sea.mesh);
+function createPlanet() {
+    planet = new Planet();
+    planet.mesh.position.y = -world.planetRadius;
+    scene.add(planet.mesh);
 
-    sea2 = new Sea();
-    sea2.mesh.position.y = -world.seaRadius;
-    scene.add(sea2.mesh);
+    planet2 = new Planet();
+    planet2.mesh.position.y = -world.planetRadius;
+    scene.add(planet2.mesh);
 }
 
 function createSky() {
     sky = new Sky();
-    sky.mesh.position.y = -world.seaRadius;
+    sky.mesh.position.y = -world.planetRadius;
     scene.add(sky.mesh);
 }
 
@@ -1616,8 +1318,8 @@ function loop() {
                     ui.showScoreScreen();
                 } else {
                     ui.informNextLevel(game.level);
-                    sea.updateColor();
-                    sea2.updateColor();
+                    planet.updateColor();
+                    planet2.updateColor();
                     ui.updateLevelCount();
                     game.targetBaseSpeed =
                         world.initSpeed +
@@ -1659,15 +1361,17 @@ function loop() {
                 game.spawnedBetterGun = true;
             }
 
-            if (ui.mouseButtons[0] || ui.keysDown["Space"]) {
-                airplane.shoot();
+            if (game.status != "gameover") {
+                if (ui.mouseButtons[0] || ui.keysDown["Space"]) {
+                    ufo.shoot();
+                }
             }
 
-            airplane.tick(deltaTime);
+            ufo.tick(deltaTime);
             game.distance += game.speed * deltaTime * world.ratioSpeedDistance;
             game.baseSpeed +=
                 (game.targetBaseSpeed - game.baseSpeed) * deltaTime * 0.02;
-            game.speed = game.baseSpeed * game.planeSpeed;
+            game.speed = game.baseSpeed * game.UFOSpeed;
             ui.updateDistanceDisplay();
 
             if (game.lifes <= 0 && canDie) {
@@ -1676,27 +1380,36 @@ function loop() {
         }
     } else if (game.status == "gameover") {
         game.speed *= 0.99;
-        airplane.mesh.rotation.z +=
-            (-Math.PI / 2 - airplane.mesh.rotation.z) * 0.0002 * deltaTime;
-        airplane.mesh.rotation.x += 0.0003 * deltaTime;
-        game.planeFallSpeed *= 1.05;
-        airplane.mesh.position.y -= game.planeFallSpeed * deltaTime;
+        ufo.mesh.rotation.z +=
+            (-Math.PI / 2 - ufo.mesh.rotation.z) * 0.0002 * deltaTime;
+        ufo.mesh.rotation.x += 0.0003 * deltaTime;
+        game.UFOFallSpeed *= 1.05;
+        // game.UFOFallSpeed *= 1.5;
 
-        if (airplane.mesh.position.y < -200) {
+        ufo.mesh.position.y -= game.UFOFallSpeed * deltaTime;
+
+        // Shrink UFO as it falls
+        const shrinkRate = 0.0001 * deltaTime;
+        ufo.mesh.scale.x = Math.max(ufo.mesh.scale.x - shrinkRate, 0);
+        ufo.mesh.scale.y = Math.max(ufo.mesh.scale.y - shrinkRate, 0);
+        ufo.mesh.scale.z = Math.max(ufo.mesh.scale.z - shrinkRate, 0);
+
+        if (ufo.mesh.position.y < -200) {
             ui.showReplay();
             game.status = "waitingReplay";
             audioManager.play("ufo-explode");
         }
     } else if (game.status == "waitingReplay") {
         // nothing to do
+        ufo.mesh.scale.set(0.25, 0.25, 0.25);
     }
 
     if (!game.paused) {
-        airplane.tick(deltaTime);
+        ufo.tick(deltaTime);
 
-        sea.mesh.rotation.z += game.speed * deltaTime;
-        if (sea.mesh.rotation.z > 2 * Math.PI) {
-            sea.mesh.rotation.z -= 2 * Math.PI;
+        planet.mesh.rotation.z += game.speed * deltaTime;
+        if (planet.mesh.rotation.z > 2 * Math.PI) {
+            planet.mesh.rotation.z -= 2 * Math.PI;
         }
         ambientLight.intensity +=
             (0.5 - ambientLight.intensity) * deltaTime * 0.005;
@@ -1704,7 +1417,7 @@ function loop() {
         sceneManager.tick(deltaTime);
 
         sky.tick(deltaTime);
-        sea.tick(deltaTime);
+        planet.tick(deltaTime);
     }
 
     renderer.render(scene, camera);
@@ -1733,13 +1446,13 @@ function removeLife() {
 
 function setSideView() {
     game.fpv = false;
-    camera.position.set(0, world.planeDefaultHeight, 200);
+    camera.position.set(0, world.UFODefaultHeight, 200);
     camera.setRotationFromEuler(new THREE.Euler(0, 0, 0));
 }
 
 function setFollowView() {
     game.fpv = true;
-    camera.position.set(-89, airplane.mesh.position.y + 20, 0);
+    camera.position.set(-89, ufo.mesh.position.y + 50, 0);
     camera.setRotationFromEuler(
         new THREE.Euler(-1.490248, -1.4124514, -1.48923231)
     );
@@ -1757,6 +1470,7 @@ class UI {
 
         document.querySelector("#intro-screen button").onclick = () => {
             document.getElementById("intro-screen").classList.remove("visible");
+            document.getElementById("score").classList.add("visible");
             onStart();
         };
 
@@ -1834,7 +1548,7 @@ class UI {
         this.mouseButtons[event.button] = true;
 
         if (event.button === 1 && game.status === "playing") {
-            airplane.shoot();
+            ufo.shoot();
         }
     }
 
@@ -1844,7 +1558,7 @@ class UI {
             game.paused = !game.paused;
         }
         if (event.code === "Space") {
-            airplane.shoot();
+            ufo.shoot();
         }
         if (event.code === "Enter") {
             if (game.fpv) {
@@ -1867,8 +1581,8 @@ class UI {
             resetMap();
             ui.informNextLevel(1);
             game.paused = false;
-            sea.updateColor();
-            sea2.updateColor();
+            planet.updateColor();
+            planet2.updateColor();
 
             ui.updateDistanceDisplay();
             ui.updateLevelCount();
@@ -1882,13 +1596,6 @@ class UI {
     handleBlur(event) {
         this.mouseButtons = [false, false, false];
     }
-
-    // function handleTouchEnd(event) {
-    // 	if (game.status == "waitingReplay"){
-    // 		resetGame()
-    // 		ui.hideReplay()
-    // 	}
-    // }
 
     showReplay() {
         this._elemReplayMessage.style.display = "block";
@@ -1988,24 +1695,24 @@ function createWorld() {
         maxLifes: 3,
         pauseLifeSpawn: 400,
 
-        levelCount: 6,
+        levelCount: 2,
         distanceForLevelUpdate: 500,
 
-        planeDefaultHeight: 100,
-        planeAmpHeight: 80,
-        planeAmpWidth: 75,
-        planeMoveSensivity: 0.005,
-        planeRotXSensivity: 0.0008,
-        planeRotZSensivity: 0.0004,
-        planeMinSpeed: 1.2,
-        planeMaxSpeed: 1.6,
+        UFODefaultHeight: 100,
+        UFOAmpHeight: 80,
+        UFOAmpWidth: 75,
+        UFOMoveSensivity: 0.005,
+        UFORotXSensivity: 0.0008,
+        UFORotZSensivity: 0.0004,
+        UFOMinSpeed: 1.2,
+        UFOMaxSpeed: 1.6,
 
-        seaRadius: 600,
-        seaLength: 800,
-        wavesMinAmp: 5,
-        wavesMaxAmp: 20,
-        wavesMinSpeed: 0.001,
-        wavesMaxSpeed: 0.003,
+        planetRadius: 600,
+        planetLength: 800,
+        craterMinAmp: 5,
+        craterMaxAmp: 20,
+        craterMinSpeed: 0.001,
+        craterMaxSpeed: 0.003,
 
         cameraSensivity: 0.002,
 
@@ -2023,10 +1730,10 @@ function createWorld() {
 
     // create the world
     createScene();
-    createSea();
+    createPlanet();
     createSky();
     createLights();
-    createPlane();
+    createUFO();
 
     resetMap();
 }
@@ -2057,12 +1764,12 @@ function resetMap() {
         level: 1,
         levelLastUpdate: 0,
 
-        planeFallSpeed: 0.001,
-        planeSpeed: 0,
-        planeCollisionDisplacementX: 0,
-        planeCollisionSpeedX: 0,
-        planeCollisionDisplacementY: 0,
-        planeCollisionSpeedY: 0,
+        UFOFallSpeed: 0.001,
+        UFOSpeed: 0,
+        UFOCollisionDisplacementX: 0,
+        UFOCollisionSpeedX: 0,
+        UFOCollisionDisplacementY: 0,
+        UFOCollisionSpeedY: 0,
 
         coinLastSpawn: 0,
         enemyLastSpawn: 0,
@@ -2085,23 +1792,19 @@ function resetMap() {
 
     sceneManager.clear();
 
-    sea.updateColor();
-    sea2.updateColor();
+    planet.updateColor();
+    planet2.updateColor();
 
     setSideView();
 
-    airplane.equipWeapon(null);
-
-    // airplane.equipWeapon(new SimpleGun())
-    // airplane.equipWeapon(new DoubleGun())
-    // airplane.equipWeapon(new BetterGun())
+    ufo.equipWeapon(null);
 }
 
 let soundPlaying = false;
 
 function startMap() {
     if (!soundPlaying) {
-        audioManager.play("ufo-sound", { loop: true, volume: 0.2 });
+        audioManager.play("ufo-sound", { loop: true, volume: 0.5 });
         // audioManager.play("ocean", { loop: true, volume: 1 });
         soundPlaying = true;
     }
@@ -2122,23 +1825,9 @@ function onWebsiteLoaded(event) {
     audioManager.load("orb-2", "orb", "/audio/orb-2.mp3");
     audioManager.load("orb-3", "orb", "/audio/orb-3.mp3");
 
-    audioManager.load(
-        "airplane-crash-1",
-        "airplane-crash",
-        "/audio/airplane-crash-1.mp3"
-    );
-    audioManager.load(
-        "airplane-crash-2",
-        "airplane-crash",
-        "/audio/airplane-crash-2.mp3"
-    );
-    audioManager.load(
-        "airplane-crash-3",
-        "airplane-crash",
-        "/audio/airplane-crash-3.mp3"
-    );
-
-    audioManager.load("bubble", "bubble", "/audio/bubble.mp3");
+    audioManager.load("ufo-crash-1", "ufo-crash", "/audio/ufo-crash-1.mp3");
+    audioManager.load("ufo-crash-2", "ufo-crash", "/audio/ufo-crash-2.mp3");
+    audioManager.load("ufo-crash-3", "ufo-crash", "/audio/ufo-crash-3.mp3");
 
     audioManager.load("laser-soft", "laser-soft", "/audio/laser-soft.mp3");
 

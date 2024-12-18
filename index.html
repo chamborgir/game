@@ -1,14 +1,10 @@
-<!-- Copied and modified from http://games-aviator.com/ -->
 <html>
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Space Voyager</title>
-        <meta
-            name=""
-            content=""
-        />
+        <title>UFV</title>
+        <meta name="" content="" />
         <link rel="icon" type="image/png" href="favicon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,6 +12,11 @@
             href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap"
             rel="stylesheet"
         />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+            rel="stylesheet"
+        />
+
         <link rel="stylesheet" type="text/css" href="/game.css" />
         <script src="https://cdn.jsdelivr.net/npm/three@0.139.2/build/three.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/three@0.139.2/examples/js/loaders/OBJLoader.js"></script>
@@ -25,23 +26,9 @@
     <body>
         <div class="game-holder" id="gameHolder">
             <div class="header">
-                <!-- <div class="header__title-wrap">
-                    <h1 class="header__title">
-                        <span class="header__title-pre">The</span>
-                        <span class="header__title-main">Aviator 2</span>
-                    </h1>
-                    <h2 class="header__tagline">
-                        An extension of Karim Maaloul's
-                        <a
-                            href="http://tympanus.net/codrops/?p=26501"
-                            class="hover-line"
-                            >The Aviator</a
-                        >
-                    </h2>
-                </div> -->
                 <div class="score" id="score">
                     <div class="score__content" id="level">
-                        <div class="score__label">level</div>
+                        <div class="score__label">planet</div>
                         <div
                             class="score__value score__value--level"
                             id="levelValue"
@@ -88,7 +75,7 @@
                         class="score__content score__content--fixed"
                         id="coins"
                     >
-                        <div class="score__label">coins</div>
+                        <div class="score__label">gems</div>
                         <div
                             class="score__value score__value--dist"
                             id="coinsValue"
@@ -105,12 +92,6 @@
                 </div>
             </div>
 
-            <!-- <nav class="links">
-			<a href="http://tympanus.net/Development/TextRepetitionEffect/" class="hover-line">Previous demo</a>
-			<a href="https://tympanus.net/codrops/?p=63296" class="hover-line">Article</a>
-			<a href="https://github.com/Badestrand/TheAviator2" class="hover-line">GitHub</a>
-		</nav> -->
-
             <div class="world" id="world">
                 <canvas id="threejs-canvas"></canvas>
             </div>
@@ -125,11 +106,13 @@
             </div>
 
             <div id="new-level">
-                <p>Level</p>
+                <p>Planet</p>
                 <p>1</p>
             </div>
 
             <div id="intro-screen" class="visible">
+                <h1>UFV</h1>
+                <h2>Unidentified Flying Voyager</h2>
                 <button type="button">Start</button>
             </div>
 
@@ -138,21 +121,21 @@
                     <p class="headline">Map complete</p>
                     <div class="lines">
                         <div>
-                            <span>Coins</span>
+                            <span>Gems</span>
                             <span
                                 ><span id="score-coins-collected">129</span> /
                                 <span id="score-coins-total">136</span></span
                             >
                         </div>
                         <div>
-                            <span>Enemies killed</span>
+                            <span>Asteroids destroyed</span>
                             <span
                                 ><span id="score-enemies-killed">3</span> /
                                 <span id="score-enemies-total">20</span></span
                             >
                         </div>
                         <div>
-                            <span>Shots fired</span>
+                            <span>Beams fired</span>
                             <span
                                 ><span id="score-shots-fired">9820</span></span
                             >
@@ -168,45 +151,6 @@
             </div>
         </div>
 
-        <!-- <div id="attribution" style="display: none">
-            <p>
-                Sound effects obtained from https://www.zapsplat.com and
-                https://freesound.org/.<br />
-                <br />
-                This game uses these following sounds from freesound:<br />
-                &nbsp;&nbsp;Sound "Crash" by user "Previsionary"
-                (https://freesound.org/people/Previsionary/sounds/593677)
-                licensed under Creative Commons 0<br />
-                &nbsp;&nbsp;Sound "Bubble Pop" by user "elmasmalo1"
-                (https://freesound.org/people/elmasmalo1/sounds/376968) licensed
-                under Attribution 3.0<br />
-                &nbsp;&nbsp;Sound "Bullet_Impact_2" by user "toxicwafflezz"
-                (https://freesound.org/people/toxicwafflezz/sounds/150838)
-                licensed under Attribution 3.0<br />
-                &nbsp;&nbsp;Sound "Pacific Ocean" by user "tim.kahn"
-                (https://freesound.org/people/tim.kahn/sounds/174763) licensed
-                under Attribution 3.0<br />
-                &nbsp;&nbsp;Sound "Airship propeller engine" by user
-                "ilm0player"
-                (https://freesound.org/people/ilm0player/sounds/578181/)
-                licensed under Creative Commons 0<br />
-                &nbsp;&nbsp;Sound "Rock Smash" by user "NeoSpica"
-                (https://freesound.org/people/NeoSpica/sounds/512243) licensed
-                under Creative Commons 0<br />
-                &nbsp;&nbsp;Sound "Gun shot/bullet hit" by user "coolguy244e"
-                (https://freesound.org/people/coolguy244e/sounds/266916)
-                licensed under Creative Commons 0<br />
-                &nbsp;&nbsp;Sound "Pistol Shot" by user "LeMudCrab"
-                (https://freesound.org/people/LeMudCrab/sounds/163456/) licensed
-                under Creative Commons 0<br />
-                &nbsp;&nbsp;Sound "Water Splash" by user "Yin_Yang_Jake007"
-                (https://freesound.org/people/Yin_Yang_Jake007/sounds/406087/)
-                licensed under Attribution 3.0<br />
-                &nbsp;&nbsp;Sound "Coins - 01" by user "DWOBoyle"
-                (https://freesound.org/people/DWOBoyle/sounds/140382/) licensed
-                under Attribution 3.0<br />
-            </p>
-        </div> -->
         <script type="text/javascript" src="/game.js"></script>
     </body>
 </html>
