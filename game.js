@@ -1,4 +1,3 @@
-
 function createUFOMesh() {
     const mesh = new THREE.Object3D();
 
@@ -31,7 +30,7 @@ function createUFOMesh() {
         0,
         Math.PI / 2
     );
-    
+
     const dome = new THREE.Mesh(geomDome, matDome);
     dome.position.y = 10; // Adjust to sit above the saucer body
     dome.castShadow = true;
@@ -1798,10 +1797,24 @@ function resetMap() {
 
 let soundPlaying = false;
 
+const bgMusic = document.getElementById("bg-music");
+const musicButton = document.getElementById("toggle-music");
+let isMusicPlaying = false;
+
+musicButton.addEventListener("click", () => {
+    if (isMusicPlaying) {
+        bgMusic.pause();
+        musicButton.textContent = "Play Music";
+    } else {
+        bgMusic.play();
+        musicButton.textContent = "Pause Music";
+    }
+    isMusicPlaying = !isMusicPlaying;
+});
+
 function startMap() {
     if (!soundPlaying) {
         audioManager.play("ufo-sound", { loop: true, volume: 0.5 });
-        audioManager.play("bg", { loop: true, volume: 0.5 });
 
         soundPlaying = true;
     }

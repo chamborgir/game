@@ -28,10 +28,6 @@
     <body>
         <div class="game-holder" id="gameHolder">
             <div class="header">
-                <audio id="bg-music" loop autoplay>
-                    <source src="background-music.mp3" type="audio/mpeg" />
-                    Your browser does not support the audio element.
-                </audio>
                 <div class="score" id="score">
                     <div class="score__content" id="level">
                         <div class="score__label">planet</div>
@@ -115,11 +111,13 @@
                 <p>Planet</p>
                 <p>1</p>
             </div>
+            <audio id="bg-music" src="/audio/bg.mp3" loop></audio>
 
             <div id="intro-screen" class="visible">
                 <h1>UFV</h1>
                 <h2>Unidentified Flying Voyager</h2>
                 <button type="button">Start</button>
+                <button type="button" id="toggle-music">Play Music</button>
             </div>
 
             <div id="score-screen">

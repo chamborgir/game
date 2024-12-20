@@ -451,7 +451,7 @@ a:focus-visible {
 
 #intro-screen {
 
-	padding-top: 12rem;
+	padding-top: 10rem;
 	display: flex;
 	flex-direction: column;
 	place-items: center;
@@ -476,6 +476,7 @@ a:focus-visible {
 	color: #a1c4ff; /* Light blue for subtitle */
 	text-shadow: 2px 2px #000; /* Subtle shadow for depth */
 	margin: 10px 0;
+	margin-bottom: 3rem;
 	
 }
 
@@ -484,8 +485,8 @@ a:focus-visible {
 }
 
 #intro-screen button {
-	width: 120px;
-	height: 120px;
+	width: 110px;
+	height: 90px;
 	display: grid;
 	place-items: center;
 	background: #3a91f2; /* Bright blue for button */
@@ -497,8 +498,7 @@ a:focus-visible {
 	border: 3px solid #6ba4ff; /* Lighter blue border for contrast */
 	box-shadow: 4px 4px #1e3a78; /* Retro shadow for button */
 	transition: transform 0.2s, box-shadow 0.2s;
-
-	margin-top: 5rem;
+	margin: 1rem;
 }
 
 #intro-screen button:hover {
