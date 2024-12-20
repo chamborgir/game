@@ -1,8 +1,3 @@
-// import * as THREE from "three";
-// import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-
-// MODEL LOADER
-// const loader = new GLTFLoader();
 
 function createUFOMesh() {
     const mesh = new THREE.Object3D();
@@ -36,6 +31,7 @@ function createUFOMesh() {
         0,
         Math.PI / 2
     );
+    
     const dome = new THREE.Mesh(geomDome, matDome);
     dome.position.y = 10; // Adjust to sit above the saucer body
     dome.castShadow = true;
@@ -1696,7 +1692,7 @@ function createWorld() {
         pauseLifeSpawn: 400,
 
         levelCount: 8,
-        distanceForLevelUpdate: 500,
+        distanceForLevelUpdate: 1000,
 
         UFODefaultHeight: 100,
         UFOAmpHeight: 80,
@@ -1805,7 +1801,7 @@ let soundPlaying = false;
 function startMap() {
     if (!soundPlaying) {
         audioManager.play("ufo-sound", { loop: true, volume: 0.5 });
-        audioManager.play("bg", { loop: true, volume: 0.4 });
+        audioManager.play("bg", { loop: true, volume: 0.5 });
 
         soundPlaying = true;
     }
